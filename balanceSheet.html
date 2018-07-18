@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+	<meta charset="utf-8"/>
+	<title>Bilans Wydatków</title>
+	<meta name="description" content="Bilans wydatków. Oszczędzaj poprzez kontrolę swoich wydatków." />
+	<meta name="keywords" content="bilans, wydatki, oszczędzanie, pieniądze" />
+	<meta http-equiv="X-UA-Copmatible" content="IE=edge,chrome=1"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="javascript.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css" >
+	
+	<link href="https://fonts.googleapis.com/css?family=Knewave|Work+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+	
+	
+</head>
+<body>	
+	<header>
+		<article class="index-intro">
+			<div class="container">
+				<div class="jumbotron">
+					<div class="row">
+						<div class="col-sm-8">
+							<h1>Bilans</h1>
+							<p>Oszczędzaj kontrolując swoje wydatki</p>
+						</div>
+						<div class="col-sm-4"></div>
+					</div>
+				</div>
+			</div>
+		</article>
+	</header>
+	<main>
+		<div class="container">
+			<article class="mainMenu-navigation">
+				<nav class="navbar navbar-default" id="nav">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="mainMenu.html">Bilans wydatków</a>
+						</div>
+						<div class="collapse navbar-collapse" id="myNavbar">
+							<ul class="nav navbar-nav">
+								<li><a href="mainMenu.html">Start</a>
+								</li>
+								<li class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span>&nbsp;Dodaj</a>
+									<ul class="dropdown-menu">
+										<li><a href="#">Przychód</a></li>
+										<li><a href="#">Wydatek</a></li>
+									</ul>
+								</li>
+								<li class="active"><a href="#">Przeglądaj bilans</a>
+								</li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="#" id="dateToday"></a></li>
+								<li class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon glyphicon-user"></span>&nbsp;Login</a>
+									<ul class="dropdown-menu">
+										<li><a href="#">Ustawienia</a></li>
+										<li><a href="#">Wyloguj się</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</article>
+			<section class="main-container">
+				<section class="balanceSheet">
+					<h3 class="balanceSheetHeader">Twój bilans wydatków</h3>
+					<div class="alert alert-danger">
+						<strong>Uwaga! </strong>Wpadasz w długi!
+					</div>
+					<form>
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="form-group">
+									<select class="form-control" id="span">
+										<option>Bierzący miesiąc</option>
+										<option>Poprzedni miesiąc</option>
+										<option>Bierzący rok</option>
+										<option>Niestandardowy</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-9"></div>
+						</div>
+					</form>
+					<h5 class="revenueHeader">Przychody</h5>
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Kategoria</th>
+									<th>Kwota</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Wynagrodzenia</td>
+									<td>1500,00</td>
+								</tr>
+								<tr>
+									<td>Odsetki bankowe</td>
+									<td>500,00</td>
+								</tr>
+								<tr>
+									<td>Sprzedaż na allegro</td>
+									<td>300,00</td>
+								</tr>
+								<tr>
+									<td>Inne</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<th class="sum">Suma</th>
+									<td class="sum">2500,00</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<h5 class="expensesHeader">Wydatki</h5>
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Kategoria</th>
+									<th>Kwota</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Jedzenie</td>
+									<td>1500,00</td>
+								</tr>
+								<tr>
+									<td>Mieszkanie</td>
+									<td>500,00</td>
+								</tr>
+								<tr>
+									<td>Transport</td>
+									<td>300,00</td>
+								</tr>
+								<tr>
+									<td>Telekomunikacja</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Opieka zdrowotna</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Ubranie</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Higiena</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Dzieci</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Rozrywka</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Wycieczka</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Szkolenie</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Oszczędności</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Książki</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Emerytura</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Spłata długów</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Darowizna</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<td>Inne wydatki</td>
+									<td>200,00</td>
+								</tr>
+								<tr>
+									<th class="sum">Suma</th>
+									<td class="sum">2500,00</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div id="chart"><div id="piechart"></div></div>
+				</section>
+			</section>
+		</div>
+	</main>
+	<script>chart();</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+	<meta charset="utf-8"/>
+	<title>Bilans Wydatków</title>
+	<meta name="description" content="Bilans wydatków. Oszczędzaj poprzez kontrolę swoich wydatków." />
+	<meta name="keywords" content="bilans, wydatki, oszczędzanie, pieniądze" />
+	<meta http-equiv="X-UA-Copmatible" content="IE=edge,chrome=1"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="javascript.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css" >
+	
+	<link href="https://fonts.googleapis.com/css?family=Knewave|Work+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+	
+	
+</head>
+<body>	
+	<header>
+		<article class="index-intro">
+			<div class="container">
+				<div class="jumbotron">
+					<div class="row">
+						<div class="col-sm-8">
+							<h1>Bilans</h1>
+							<p>Oszczędzaj kontrolując swoje wydatki</p>
+						</div>
+						<div class="col-sm-4"></div>
+					</div>
+				</div>
+			</div>
+		</article>
+	</header>
+	<main>
+		<div class="container">
+			<article class="mainMenu-navigation">
+				<nav class="navbar navbar-default" id="nav">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="mainMenu.html">Bilans wydatków</a>
+						</div>
+						<div class="collapse navbar-collapse" id="myNavbar">
+							<ul class="nav navbar-nav">
+								<li><a href="mainMenu.html">Start</a>
+								</li>
+								<li class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span>&nbsp;Dodaj</a>
+									<ul class="dropdown-menu">
+										<li class="active"><a href="#">Przychód</a></li>
+										<li><a href="#">Wydatek</a></li>
+									</ul>
+								</li>
+								<li><a href="#">Przeglądaj bilans</a>
+								</li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="#" id="dateToday"></a></li>
+								<li class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon glyphicon-user"></span>&nbsp;Login</a>
+									<ul class="dropdown-menu">
+										<li><a href="#">Ustawienia</a></li>
+										<li><a href="#">Wyloguj się</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</article>
+			<section class="main-container">
+				<section class="addRevenue">
+					<h3 class="addRevenueHeader">Dodaj nowy przychód</h3>
+					<form class="form">
+						<div class="row">
+							<div class="col-sm-2">
+								<div class="form-group">
+									<label for="amount">Kwota:</label>
+									<input name="amount" type="number" placeholder="0,0" onfocus="this.placeholder=''" onblur="this.placeholder='0,0'" step="0.01" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="form-group">
+									<label for="date">Data:</label>
+									<input name="date" id="datePicker" type="date" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-8">
+								<div class="form-group">
+									<label>Kategoria:</label>
+									<div class="radio">
+										<label class="radio-inline"><input type="radio" name="category">Wynagrodzenie</label>
+										<label class="radio-inline"><input type="radio" name="category">Odsetki bankowe</label>
+										<label class="radio-inline"><input type="radio" name="category">Sprzedaż na allegro</label>
+										<label class="radio-inline"><input type="radio" name="category">Inne</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="comment">Komentarz (opcjonalnie):</label>
+							<textarea class="form-control" rows="3" id="comment"></textarea>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<button class="btn btn-default btn-sm btn-block" name="addRevenueButton" id="addRevenueButton" >Dodaj</button>
+							</div>
+							<div class="col-sm-6">
+								<button class="btn btn-default btn-sm btn-block" name="cancelRevenueButton" id="cancelRevenueButton" >Anuluj</button>
+							</div>
+						</div>
+					</form>
+				</section>
+			</section>
+		</div>
+	</main>
+	<script>document.getElementById('datePicker').valueAsDate = new Date();</script>
+</body>
+</html>
