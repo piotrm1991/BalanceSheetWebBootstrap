@@ -1,0 +1,244 @@
+body
+{
+	background-image: url('../img/Banknotes.jpg');
+	background-size: cover;
+	font-family: 'Mukta', sans-serif;
+	color: #aa1818;
+	background-repeat: no-repeat;
+	max-width: 100%;
+    overflow-x: hidden;
+}
+
+.index
+{
+	padding-top: 150px;
+}
+
+.index-intro
+{
+	text-align: center;
+	padding-bottom: 50px;
+}
+
+.index-intro h1
+{
+	font-family: 'Charmonman', cursive;
+	font-weight: 700;
+	font-size: 50px;
+}
+
+.index-intro p
+{
+	font-family: 'Charmonman', cursive;
+	font-weight: 400;
+	font-size: 20px;
+}
+
+.index-intro h2
+{
+	font-family: 'Charmonman', cursive;
+	font-weight: 400;
+	font-size: 30px;
+}
+
+.message
+{
+	padding-bottom: 10px;
+}
+
+/* -- navigation --*/
+#dateToday
+{
+	color: #000;
+	cursor: default;
+	pointer-events: none;
+}
+
+.brand
+{
+	font-family: 'Charmonman', cursive;
+	font-weight: 700;	
+}
+
+.navigation .dropdown-menu>.active>a, 
+.navigation .dropdown-menu>.active>a:focus, 
+.navigation .dropdown-menu>.active>a:hover
+{
+	cursor: default;
+	pointer-events: none;
+}
+
+.navigation .navbar-default .navbar-nav > .active > a,
+.navigation .navbar-default .navbar-nav > .active > a:hover,
+.navigation .navbar-default .navbar-nav > .active > a:focus 
+{
+	cursor: default;
+	pointer-events: none;
+}
+
+.navigation .dropdown-menu>.active>a, 
+.navigation .dropdown-menu>.active>a:focus, 
+.navigation .dropdown-menu>.active>a:hover
+{
+	cursor: default;
+	pointer-events: none;
+}
+
+.navigation .modal
+{
+	cursor: poiner;
+}
+/* ---- */
+
+/* -- modal -- */
+.headerAddEntry
+{
+	font-family: 'Charmonman', cursive;
+	font-weight: 400;
+	font-size:25px;
+	text-align: center;
+}
+
+.header
+{
+	border-bottom: 1px dashed #aa1818;
+}
+
+.footer
+{
+	border-top: 1px dashed #aa1818;
+}
+
+.addEntry
+{
+	background-image: url('../img/creampaper.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	border-radius: 15px;
+	-webkit-box-shadow: 3px 7px 78px 0px rgba(170,24,24,1);
+	-moz-box-shadow: 3px 7px 78px 0px rgba(170,24,24,1);
+	box-shadow: 3px 7px 78px 0px rgba(170,24,24,1);
+}
+
+.addEntry textarea
+{
+	resize: none;
+}
+/* ---- */
+
+/* -- start -- */
+.index-start .singleEntry
+{
+	width: 100%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	font-size: 10px;
+}
+
+.index-start
+{
+	margin-top: 40px;
+}
+
+.index-start h1
+{
+	font-family: 'Charmonman', cursive;
+	font-weight: 700;
+	font-size: 50px;
+}
+
+.index-start .start
+{
+	margin-top: 20px;
+	font-size: 15px;
+	padding: 15px;
+	width: 100%;
+	background-image: url('../img/creampaper.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	border-radius: 15px;
+	-webkit-box-shadow: 3px 7px 78px 0px rgba(170,24,24,1);
+	-moz-box-shadow: 3px 7px 78px 0px rgba(170,24,24,1);
+	box-shadow: 3px 7px 78px 0px rgba(170,24,24,1);
+}
+
+.index-start .start h2
+{
+	font-family: 'Charmonman', cursive;
+	font-weight: 700;
+	font-size:25px;
+	text-align: center;
+}
+
+.index-start .start a
+{
+	text-decoration: none;
+}
+
+.index-start .start h3
+{
+	font-family: 'Charmonman', cursive;
+	font-weight: 400;
+	font-size: 20px;
+	text-align: center;
+}
+/* ---- */
+
+.index-start .singleBalance
+{
+	font-size: 12px;
+	width: 100%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	padding-right: 15px;
+}
+
+.index-start .singleBalance a
+{
+	color: #aa1818;
+}
+
+.index-start .singleBalance a:hover
+{
+	color: #bb2929;
+}
+
+.index-start .singleEntry a
+{
+	color: #aa1818;
+}
+
+.index-start .singleEntry a:hover
+{
+	color: #bb2929;
+}
+
+.index-start .singleCategory
+{
+	font-size: 15px; 
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 10px;
+}
+
+.index-start .balance
+{
+	margin-top: 50px;
+}
+
+.index-start .balanceSuccess
+{
+	font-size: 20px;
+	text-align: center;
+	color: #6fb76f;
+}
+
+.index-start .balanceWarning
+{
+	font-size: 20px;
+	text-align: center;
+	color: #e50000;
+}
