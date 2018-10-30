@@ -50,30 +50,30 @@ $year = $dateToday->format("Y");
 						<?php if ($action == 'showBalanceThisMonth'): ?>
 						<?php $_SESSION['actionReturn'] = 'Location:index.php?action=showBalanceThisMonth';?>
 						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span>&nbsp;&nbsp;Bierzący miesiąc&nbsp;&nbsp;<i class="glyphicon glyphicon-calendar"></i></a>
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span>&nbsp;&nbsp;Bieżący miesiąc&nbsp;&nbsp;<i class="glyphicon glyphicon-calendar"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="index.php?action=showBalanceLastMonth">Ostatni Miesiąc</a></li>
-								<li><a href="index.php?action=showBalanceThisYear">Bierzący rok</a></li>
+								<li><a href="index.php?action=showBalanceLastMonth">Ostatni miesiąc</a></li>
+								<li><a href="index.php?action=showBalanceThisYear">Bieżący rok</a></li>
 								<li><a data-toggle="modal" data-target="#chooseDate" style="cursor: pointer;">Wybierz daty</a></li>
 							</ul>
 						</li>
 						<?php elseif ($action == 'showBalanceLastMonth'): ?>
 						<?php $_SESSION['actionReturn'] = 'Location:index.php?action=showBalanceLastMonth';?>
 						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span>&nbsp;&nbsp;Ostatni Miesiąc&nbsp;&nbsp;<i class="glyphicon glyphicon-calendar"></i></a>
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span>&nbsp;&nbsp;Ostatni miesiąc&nbsp;&nbsp;<i class="glyphicon glyphicon-calendar"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="index.php?action=showBalanceThisMonth">Bierzący miesiąc</a></li>
-								<li><a href="index.php?action=showBalanceThisYear">Bierzący rok</a></li>
+								<li><a href="index.php?action=showBalanceThisMonth">Bieżący miesiąc</a></li>
+								<li><a href="index.php?action=showBalanceThisYear">Bieżący rok</a></li>
 								<li><a data-toggle="modal" data-target="#chooseDate" style="cursor: pointer;">Wybierz daty</a></li>
 							</ul>
 						</li>
 						<?php elseif ($action == 'showBalanceThisYear'): ?>
 						<?php $_SESSION['actionReturn'] = 'Location:index.php?action=showBalanceThisYear';?>
 						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span>&nbsp;&nbsp;Bierzący rok&nbsp;&nbsp;<i class="glyphicon glyphicon-calendar"></i></a>
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span>&nbsp;&nbsp;Bieżący rok&nbsp;&nbsp;<i class="glyphicon glyphicon-calendar"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="index.php?action=showBalanceThisMonth">Bierzący miesiąc</a></li>
-								<li><a href="index.php?action=showBalanceLastMonth">Ostatni Miesiąc</a></li>
+								<li><a href="index.php?action=showBalanceThisMonth">Bieżący miesiąc</a></li>
+								<li><a href="index.php?action=showBalanceLastMonth">Ostatni miesiąc</a></li>
 								<li><a data-toggle="modal" data-target="#chooseDate" style="cursor: pointer;">Wybierz daty</a></li>
 							</ul>
 						</li>
@@ -86,9 +86,9 @@ $year = $dateToday->format("Y");
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span>&nbsp;&nbsp;Wybierz daty&nbsp;&nbsp;<i class="glyphicon glyphicon-calendar"></i></a>
 							<?php endif; ?>
 							<ul class="dropdown-menu">
-								<li><a href="index.php?action=showBalanceThisMonth">Bierzący miesiąc</a></li>
-								<li><a href="index.php?action=showBalanceThisYear">Bierzący rok</a></li>
-								<li><a href="index.php?action=showBalanceLastMonth">Ostatni Miesiąc</a></li>
+								<li><a href="index.php?action=showBalanceThisMonth">Bieżący miesiąc</a></li>
+								<li><a href="index.php?action=showBalanceThisYear">Bieżący rok</a></li>
+								<li><a href="index.php?action=showBalanceLastMonth">Ostatni miesiąc</a></li>
 								<li><a data-toggle="modal" data-target="#chooseDate" style="cursor: pointer;">Wybierz daty</a></li>
 							</ul>
 						</li>

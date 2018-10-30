@@ -70,6 +70,13 @@ class AddIncome
             $comment = filter_input(INPUT_POST, 'comment', 
                        FILTER_SANITIZE_SPECIAL_CHARS);
         }
+        $comment = ltrim($comment);
+		$comment = rtrim($comment);
+        
+        if (strlen($comment) > 45) {
+            return WRONG_LENGTH;
+        }
+        
         $amount = $_POST['amount'];
         $date = $_POST['date'];
         $category = $_POST['category'];

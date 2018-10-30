@@ -1,8 +1,8 @@
 <?php if(!isset($_SESSION['loggedIN'])) exit(); ?>
 <section class="index-start">
 	<div class="row">
-		<div class="col-sm-2"></div>
-		<div class="col-sm-3">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-4">
 			<div class="start">
 			<?php if ($expenseSum<=0): ?>
 			<h2>Nie ma wydatków!</h2>
@@ -22,7 +22,7 @@
 			</div>
 		</div>
 		<div class="col-sm-2"></div>
-		<div class="col-sm-3">
+		<div class="col-sm-4">
 			<div class="start">
 			<?php if ($incomeSum<=0): ?>
 			<h2>Nie ma przychodów!</h2>
@@ -41,7 +41,7 @@
 			?>
 			</div>
 		</div>
-		<div class="col-sm-2"></div>
+		<div class="col-sm-1"></div>
 	</div>
 	<?php if ($incomeSum!=0 || $expenseSum!=0): ?>
 	<div class="row">

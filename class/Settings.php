@@ -5,12 +5,12 @@ class Settings
     private $userLoggedIn;
     private $dbo;
 
-    private $categorieIncomeNames;
-    private $categorieIncomeNamesTranslated;
+    private $categoriesIncomeNames;
+    private $categoriesIncomeNamesTranslated;
     private $fieldsIncome = array();
 
-    private $categorieExpenseNames;
-    private $categorieExpenseNamesTranslated;
+    private $categoriesExpenseNames;
+    private $categoriesExpenseNamesTranslated;
     private $fieldsExpense = array();
 
     private $paymentsNames;
@@ -32,22 +32,22 @@ class Settings
     function getCategoriesAndPayments()
     {
         $expenseCategoryName = new ExpenseCategoryNames($this -> dbo, $this -> userLoggedIn -> id);
-        $this -> categorieExpenseNames = $expenseCategoryName -> getNames();
-        $this -> categorieExpenseNamesTranslated = $expenseCategoryName -> getNamesTranslated();
+        $this -> categoriesExpenseNames = $expenseCategoryName -> getNames();
+        $this -> categoriesExpenseNamesTranslated = $expenseCategoryName -> getNamesTranslated();
 
         $paymentMethodName = new PaymentMethodsNames($this -> dbo, $this -> userLoggedIn -> id);
         $this -> paymentsNames = $paymentMethodName -> getNames();
         $this -> paymentsNamesTranslated = $paymentMethodName -> getNamesTranslated();
 
         $incomeCategoryName = new IncomeCategoryNames($this -> dbo, $this -> userLoggedIn -> id);
-        $this -> categorieIncomeNames = $incomeCategoryName -> getNames();
-        $this -> categorieIncomeNamesTranslated = $incomeCategoryName -> getNamesTranslated();
+        $this -> categoriesIncomeNames = $incomeCategoryName -> getNames();
+        $this -> categoriesIncomeNamesTranslated = $incomeCategoryName -> getNamesTranslated();
     }
 	
     function initFields()
     {
-        foreach ($this -> categorieExpenseNames as $value) {
-            foreach ($this -> categorieExpenseNamesTranslated as $description) {
+        foreach ($this -> categoriesExpenseNames as $value) {
+            foreach ($this -> categoriesExpenseNamesTranslated as $description) {
                 if ($value['id'] == $description['id']) {
                     $this -> fieldsExpense[$value['id']] = new FormInputSelectionOption('category', $value['name'], $description['name']);
                 }
@@ -63,8 +63,8 @@ class Settings
             }
         }
         
-        foreach ($this -> categorieIncomeNames as $value) {
-            foreach ($this -> categorieIncomeNamesTranslated as $description) {
+        foreach ($this -> categoriesIncomeNames as $value) {
+            foreach ($this -> categoriesIncomeNamesTranslated as $description) {
                 if ($value['id'] == $description['id']) {
                     $this -> fieldsIncome[$value['id']] = new FormInputSelectionOption('category', $value['name'], $description['name']);
                     break;
@@ -114,14 +114,14 @@ class Settings
             return ACTION_FAILED;
         }
         
-        foreach ($this -> categorieExpenseNamesTranslated as $category) {
+        foreach ($this -> categoriesExpenseNamesTranslated as $category) {
             if (strtolower($category['name']) == strtolower($newCategoryName)) {
                 return ALREADY_EXISTS;
             }
         }
         
         $this -> newCategoryName['name'] = $newCategoryName;
-        foreach ($this -> categorieExpenseNames as $category) {
+        foreach ($this -> categoriesExpenseNames as $category) {
             if ($category['name'] == $_POST['category']) {
                 $this -> newCategoryName['id'] = $category['id'];
             }
@@ -145,7 +145,7 @@ class Settings
 	
     function checkIncomeCategoryEditForm()
     {
-        if ($_POST['newCategoryName']==null) {
+        if ($_POST['newCategoryName'] == null) {
             return FORM_DATA_MISSING;
         }
 
@@ -166,15 +166,15 @@ class Settings
             return ACTION_FAILED;
         }
         
-        foreach ($this -> categorieExpenseNamesTranslated as $category) {
+        foreach ($this -> categoriesIncomeNamesTranslated as $category) {
             if (strtolower($category['name']) == strtolower($newCategoryName)) {
                 return ALREADY_EXISTS;
             }
         }
         
         $this -> newCategoryName['name'] = $newCategoryName;
-        foreach ($this -> categorieIncomeNames as $category) {
-            if ($category['name'] == $_POST['payment']) {
+        foreach ($this -> categoriesIncomeNames as $category) {
+            if ($category['name'] == $_POST['category']) {
                 $this -> newCategoryName['id'] = $category['id'];
             }
         }
@@ -268,7 +268,7 @@ class Settings
             return WRONG_LENGTH;
         }
         
-        foreach ($this -> categorieExpenseNamesTranslated as $category) {
+        foreach ($this -> categoriesExpenseNamesTranslated as $category) {
             if (strtolower($category['name']) == strtolower($newCategoryName)) {
                 return ALREADY_EXISTS;
             }
@@ -312,7 +312,7 @@ class Settings
             return WRONG_LENGTH;
         }
         
-        foreach ($this -> categorieIncomeNamesTranslated as $category) {
+        foreach ($this -> categoriesIncomeNamesTranslated as $category) {
             if (strtolower($category['name']) == strtolower($newCategoryName)) {
                 return ALREADY_EXISTS;
             }
@@ -387,7 +387,7 @@ class Settings
             return ACTION_FAILED;
         }
         $categoryName = $_POST['category'];
-        foreach ($this -> categorieExpenseNames as $category) {
+        foreach ($this -> categoriesExpenseNames as $category) {
             if ($category['name'] == $categoryName) {
                 $this -> newCategoryName['id'] = $category['id'];
             }
@@ -416,7 +416,7 @@ class Settings
             return ACTION_FAILED;
         }
         $categoryName = $_POST['category'];
-        foreach ($this -> categorieIncomeNames as $category) {
+        foreach ($this -> categoriesIncomeNames as $category) {
             if ($category['name'] == $categoryName) {
                 $this -> newCategoryName['id'] = $category['id'];
             }

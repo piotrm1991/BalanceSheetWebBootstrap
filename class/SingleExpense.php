@@ -89,18 +89,22 @@ class SingleExpense extends SingleEntry
         echo 
         "
         <section class='singleEntry'>
-            <i class='glyphicon glyphicon-arrow-right'></i>&nbsp;&nbsp;".$this->date."
+            <i class='glyphicon glyphicon-arrow-right'></i>
+            &nbsp;&nbsp;
+            ".$this->date."
+            &nbsp;&nbsp;
             ".$this->amount."&nbsp;zł
             &nbsp;&nbsp;
             ".$this->categoryTranslated."
             &nbsp;&nbsp;
             ".$this->paymentTranslated."
-            &nbsp;&nbsp;
-            ".$this->comment."
-            &nbsp;&nbsp;
-            <a data-toggle='modal' data-target='#editExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->categoryTranslated."' data-payment='".$this->paymentTranslated."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-pencil'></i></a>
-            &nbsp;&nbsp;
-            <a data-toggle='modal' data-target='#deleteExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->categoryTranslated."' data-payment='".$this->paymentTranslated."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-trash'></i></a>
+            <div style='float: right;'>
+                <a data-toggle='modal' data-target='#editExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->categoryTranslated."' data-payment='".$this->paymentTranslated."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-pencil'></i></a>
+                &nbsp;&nbsp;
+                <a data-toggle='modal' data-target='#deleteExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->categoryTranslated."' data-payment='".$this->paymentTranslated."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-trash'></i></a>
+            </div>
+            <br>
+            <div style='padding-left: 20px;'>".$this->comment."</div>
         </section>	
         ";
     }
@@ -109,20 +113,22 @@ class SingleExpense extends SingleEntry
     {
         return 
         "
-        <section class='singleBalance' >
-            <i class='glyphicon glyphicon-arrow-right'></i>&nbsp;&nbsp;".$this->date."
-            ".$this->amount."&nbsp;zł
+        <section class='singleBalance'>
+           <i class='glyphicon glyphicon-arrow-right'></i>
             &nbsp;&nbsp;
+            ".$this -> date."
+           &nbsp;&nbsp;
+            ".$this->amount."&nbsp;zł&nbsp;&nbsp;
             ".$this->paymentTranslated."
-            &nbsp;&nbsp;
-            ".$this->comment."
-            &nbsp;&nbsp;
-            <a data-toggle='modal' data-target='#editExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->categoryTranslated."' data-payment='".$this->paymentTranslated."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-pencil'></i></a>
-            &nbsp;&nbsp;
-            <a data-toggle='modal' data-target='#deleteExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->categoryTranslated."' data-payment='".$this->paymentTranslated."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-trash'></i></a>
+            <div style='float: right;'>
+                <a data-toggle='modal' data-target='#editExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->categoryTranslated."' data-payment='".$this->paymentTranslated."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-pencil'></i></a>
+                &nbsp;&nbsp;
+                <a data-toggle='modal' data-target='#deleteExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->categoryTranslated."' data-payment='".$this->paymentTranslated."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-trash'></i></a>
+            </div>
+            <br>
+            <div style='padding-left: 23px;'>".$this->comment."</div>
         </section>
         ";
     }
 }
 ?>	
-

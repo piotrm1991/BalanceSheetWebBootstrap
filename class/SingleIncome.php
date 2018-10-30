@@ -59,17 +59,20 @@ class SingleIncome extends SingleEntry
         echo 
         "
         <section class='singleEntry'>
-            <i class='glyphicon glyphicon-arrow-right'></i>&nbsp;&nbsp;".$this -> date."
+            <i class='glyphicon glyphicon-arrow-right'></i>
+            &nbsp;&nbsp;
+            ".$this -> date."
             &nbsp;&nbsp;
             ".$this -> amount."&nbsp;zł
             &nbsp;&nbsp;
             ".$this -> categoryTranslated."
-            &nbsp;&nbsp;
-            ".$this -> comment."
-            &nbsp;&nbsp;
-            <a data-toggle='modal' data-target='#editIncome' style='cursor: pointer;' data-date='".$this -> date."' data-amount='".$this -> amount."' data-category='".$this->categoryTranslated."' data-comment='".$this -> comment."' data-id='".$this -> id."' data-category-id='".$this->income_category_assigned_to_user_id."'><i class='glyphicon glyphicon-pencil'></i></a>
-            &nbsp;&nbsp;
-            <a data-toggle='modal' data-target='#deleteIncome' style='cursor: pointer;' data-date='".$this -> date."' data-amount='".$this->amount."' data-category='".$this -> categoryTranslated."' data-comment='".$this -> comment."' data-id='".$this -> id."' data-category-id='".$this -> income_category_assigned_to_user_id."'><i class='glyphicon glyphicon-trash'></i></a>
+            <div style='float: right;'>
+                <a data-toggle='modal' data-target='#editIncome' style='cursor: pointer;' data-date='".$this -> date."' data-amount='".$this -> amount."' data-category='".$this->categoryTranslated."' data-comment='".$this -> comment."' data-id='".$this -> id."' data-category-id='".$this->income_category_assigned_to_user_id."'><i class='glyphicon glyphicon-pencil'></i></a>
+                &nbsp;&nbsp;
+                <a data-toggle='modal' data-target='#deleteIncome' style='cursor: pointer;' data-date='".$this -> date."' data-amount='".$this->amount."' data-category='".$this -> categoryTranslated."' data-comment='".$this -> comment."' data-id='".$this -> id."' data-category-id='".$this -> income_category_assigned_to_user_id."'><i class='glyphicon glyphicon-trash'></i></a>
+            </div>
+            <br>
+            <div style='padding-left: 20px;'>".$this->comment."</div>
         </section>	
         ";
     }
@@ -77,16 +80,20 @@ class SingleIncome extends SingleEntry
     function getBalanceHTML()
     {
         return "
-        <section class='singleBalance' >
-            <i class='glyphicon glyphicon-arrow-right'></i>&nbsp;&nbsp;".$this -> date."
+        <section class='singleBalance'>
+            <i class='glyphicon glyphicon-arrow-right'></i>
+            &nbsp;&nbsp;
+            ".$this -> date."
             &nbsp;&nbsp;
             ".$this -> amount."&nbsp;zł
             &nbsp;&nbsp;
-            ".$this -> comment."
-            &nbsp;&nbsp;
-            <a data-toggle='modal' data-target='#editIncome' style='cursor: pointer;' data-date='".$this -> date."' data-amount='".$this -> amount."' data-category='".$this -> categoryTranslated."' data-comment='".$this -> comment."' data-id='".$this -> id."' data-category-id='".$this -> income_category_assigned_to_user_id."'><i class='glyphicon glyphicon-pencil'></i></a>
-            &nbsp;&nbsp;
-            <a data-toggle='modal' data-target='#deleteIncome' style='cursor: pointer;' data-date='".$this -> date."' data-amount='".$this -> amount."' data-category='".$this -> categoryTranslated."' data-comment='".$this -> comment."' data-id='".$this -> id."' data-category-id='".$this -> income_category_assigned_to_user_id."'><i class='glyphicon glyphicon-trash'></i></a>
+            <div style='float: right;'>
+                <a data-toggle='modal' data-target='#editIncome' style='cursor: pointer;' data-date='".$this -> date."' data-amount='".$this -> amount."' data-category='".$this -> categoryTranslated."' data-comment='".$this -> comment."' data-id='".$this -> id."' data-category-id='".$this -> income_category_assigned_to_user_id."'><i class='glyphicon glyphicon-pencil'></i></a>
+                &nbsp;&nbsp;
+                <a data-toggle='modal' data-target='#deleteIncome' style='cursor: pointer;' data-date='".$this -> date."' data-amount='".$this -> amount."' data-category='".$this -> categoryTranslated."' data-comment='".$this -> comment."' data-id='".$this -> id."' data-category-id='".$this -> income_category_assigned_to_user_id."'><i class='glyphicon glyphicon-trash'></i></a>
+            </div>
+            <br>
+            <div style='padding-left: 23px;'>".$this->comment."</div>
         </section>
         ";
     }

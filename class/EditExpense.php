@@ -96,10 +96,19 @@ class EditExpense
         if ($_POST['date'] != null) {
             $this -> newExpense -> date = $_POST['date'];
         }
+        $comment;
         if ($_POST['comment'] != '') {
-            $this -> newExpense -> comment = filter_input(INPUT_POST, 'comment', 
-                                             FILTER_SANITIZE_SPECIAL_CHARS);
+            $comment = filter_input(INPUT_POST, 'comment', 
+                       FILTER_SANITIZE_SPECIAL_CHARS);
         }
+        $comment = ltrim($comment);
+		$comment = rtrim($comment);
+        
+        if (strlen($comment) > 45) {
+            return WRONG_LENGTH;
+        }
+        
+        $this -> newExpense -> comment = $comment;
         $_SESSION['editedExpense'] = new SingleExpense($this -> dbo, $this -> loggedId, $this -> newExpense -> id, $this -> loggedId, $this -> newExpense -> expense_category_assigned_to_user_id, $this -> newExpense -> payment_method_assigned_to_user_id, $this -> newExpense -> amount, $this -> newExpense -> date, $this -> newExpense -> comment);
 
         return ACTION_OK;

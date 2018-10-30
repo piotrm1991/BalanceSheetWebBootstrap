@@ -71,10 +71,20 @@ class EditIncome
         if ($_POST['date'] != null) {
             $this -> newIncome -> date = $_POST['date'];
         }
+        $comment;
         if ($_POST['comment'] != '') {
-            $this -> newIncome -> comment = filter_input(INPUT_POST, 'comment', 
-                                            FILTER_SANITIZE_SPECIAL_CHARS);
+            $comment = filter_input(INPUT_POST, 'comment', 
+                       FILTER_SANITIZE_SPECIAL_CHARS);
         }
+        
+        $comment = ltrim($comment);
+		$comment = rtrim($comment);
+        
+        if (strlen($comment) > 45) {
+            return WRONG_LENGTH;
+        }
+        
+        $this -> newIncome -> comment = $comment;
         $_SESSION['editedIncome'] = new SingleIncome($this -> dbo, $this -> loggedId, $this -> newIncome -> id, $this -> loggedId, $this -> newIncome -> income_category_assigned_to_user_id, $this -> newIncome -> amount, $this -> newIncome -> date, $this -> newIncome -> comment);
 
         return ACTION_OK;

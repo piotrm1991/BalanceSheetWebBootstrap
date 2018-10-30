@@ -4,230 +4,241 @@ $config = require_once 'connect.php';
 spl_autoload_register('classLoader');
 session_start();
 
-try{
+try {
 	$getDB = new GetDB();
-	$dbo = $getDB->getPDO($config);
+	$dbo = $getDB -> getPDO($config);
     $portal = new PortalFront($dbo);
 	
     $action = 'showMain';
-    if (isset($_GET['action'])) 
-	{
+    if (isset($_GET['action'])) {
         $action = $_GET['action'];
     }
   
-    $message = $portal->getMessage();
+    $message = $portal -> getMessage();
 
-    switch($action)
+    switch ($action)
 	{
         case 'login' : 
-            switch($portal->login()){
+            switch ($portal -> login()) {
 			case ACTION_OK : 
-				$portal->setMessage('Zalogowanie prawidłowe');
+				$portal -> setMessage('Zalogowanie prawidłowe');
 				header('Location:index.php?action=showStart');
 				return;
 			case NO_LOGIN_REQUIRED : 
-				$portal->setMessage('Najpierw proszę się wylogować.');
+				$portal -> setMessage('Najpierw proszę się wylogować.');
 				header('Location:index.php?action=showMain');
 				return;
 			case ACTION_FAILED :
 			case FORM_DATA_MISSING :
-				$portal->setMessage('Błędny login lub hasło użytkownika');
+				$portal -> setMessage('Błędny login lub hasło użytkownika');
 				break;
 			default:
-				$portal->setMessage('Błąd serwera. Zalogowanie nie jest obecnie możliwe.');
+				$portal -> setMessage('Błąd serwera. Zalogowanie nie jest obecnie możliwe.');
             }
             header('Location:index.php?action=showLoginForm');
             break;
         case 'logout': 
-            $portal->logout();
-			$portal->setMessage('Zostałeś wylogowany.');
+            $portal -> logout();
+			$portal -> setMessage('Zostałeś wylogowany.');
 			header('Location:index.php?action=showMain');
             break;
         case 'registerUser' :
-			switch($portal->registerUser()):
+			switch($portal -> registerUser()) :
 				case ACTION_OK:
-				    $portal->setMessage('Rejestracja prawidłowa. Możesz się teraz zalogować.');
+				    $portal -> setMessage('Rejestracja prawidłowa. Możesz się teraz zalogować.');
 				    header('Location:index.php?action=showLoginForm');
 				    return;
 				case FORM_DATA_MISSING:
-				    $_SESSION['registration_error']='Proszę wypełnić wszystkie pola formularza!';
+				    $_SESSION['registration_error'] = 'Proszę wypełnić wszystkie pola formularza!';
 				    break;
 				case WRONG_LENGTH:
-				    $_SESSION['registration_error']='Login musi posiadać od 3 do 20 znaków!';
+				    $_SESSION['registration_error'] = 'Login musi posiadać od 3 do 20 znaków!';
 				    break;
 				case WRONG_CHARACTERS:
-				    $_SESSION['registration_error']='Login może się składać tylko z liter i cyfr (bez polskich znaków)!';
+				    $_SESSION['registration_error'] = 'Login może się składać tylko z liter i cyfr (bez polskich znaków)!';
 				    break;
 				case WRONG_LENGTH:
-				    $_SESSION['registration_error']='Hasło musi posiadać od 8 do 20 znaków!';
+				    $_SESSION['registration_error'] = 'Hasło musi posiadać od 8 do 20 znaków!';
 				    break;
 				case BOT_ALERT:
-				    $_SESSION['registration_error']='Potwierdź, że nie jesteś botem!';
+				    $_SESSION['registration_error'] = 'Potwierdź, że nie jesteś botem!';
 				    break;
 				case ALREADY_EXISTS:
-				    $_SESSION['registration_error']='Istnieje już konto o takim loginie!';
+				    $_SESSION['registration_error'] = 'Istnieje już konto o takim loginie!';
 				    break;
 				case ACTION_FAILED:
-				    $_SESSION['registration_error']='Obecnie rejestracja nie jest możliwa.';
+				    $_SESSION['registration_error'] = 'Obecnie rejestracja nie jest możliwa.';
 				    break;
 				case SERVER_ERROR:
 				default:
-				    $_SESSION['registration_error']='Błąd serwera!';
+				    $_SESSION['registration_error'] = 'Błąd serwera!';
 			endswitch;
 			header('Location:index.php?action=showRegistrationForm');       
             break;
         case 'addIncome' :
-			switch($portal->checkIncomeForm()):
+			switch ($portal -> checkIncomeForm()) :
 				case FORM_DATA_MISSING:
-				    $_SESSION['warning']='Proszę wypełnić wymagane pola formularza!';
+				    $_SESSION['warning'] = 'Proszę wypełnić wymagane pola formularza!';
+				    break;
+				case WRONG_LENGTH:
+				    $_SESSION['warning'] = 'Komentarz nie może mieć więcej niż 45 znaków!';
 				    break;
 				case ACTION_OK:
-					switch($portal->saveIncome()):
+					switch ($portal -> saveIncome()) :
 						case ACTION_OK:
-							$_SESSION['success']='Nowy wpis został zapisany!';
+							$_SESSION['success'] = 'Nowy wpis został zapisany!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
         case 'addExpense' :
-			switch($portal->checkExpenseForm()):
+			switch ($portal -> checkExpenseForm()) :
 				case FORM_DATA_MISSING:
-				    $_SESSION['warning']='Proszę wypełnić wymagane pola formularza!';
+				    $_SESSION['warning'] = 'Proszę wypełnić wymagane pola formularza!';
+				    break;
+				case WRONG_LENGTH:
+				    $_SESSION['warning'] = 'Komentarz nie może mieć więcej niż 45 znaków!';
 				    break;
 				case ACTION_OK:
-					switch($portal->saveExpense()):
+					switch ($portal -> saveExpense()) :
 						case ACTION_OK:
-							$_SESSION['success']='Nowy wpis został zapisany!';
+							$_SESSION['success'] = 'Nowy wpis został zapisany!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'chooseDate' :
-			switch($portal->checkBalanceDate()):
+			switch ($portal -> checkBalanceDate()) :
 				case FORM_DATA_MISSING:
-				    $_SESSION['warning']='Proszę podać daty!';
+				    $_SESSION['warning'] = 'Proszę podać daty!';
 				    break;
 				case WRONG_ORDER:
-				    $_SESSION['warning']='Proszę podać daty w odpowiedniej kolejności!';
+				    $_SESSION['warning'] = 'Proszę podać daty w odpowiedniej kolejności!';
 				    break;
 				case SAME_DATE:
-				    $_SESSION['warning']='Daty nie mogą być takie same';
+				    $_SESSION['warning'] = 'Daty nie mogą być takie same';
 				    break;
 				case ACTION_OK:
 					header ('Location: index.php?action=showBalanceChoosenDate');
 					return;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'deleteIncome' :
-			switch($portal->deleteIncome()):
+			switch ($portal -> deleteIncome()) :
 				case ACTION_OK:
 					$_SESSION['success'] = 'Wpis został usunięty';
 					break;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'deleteExpense' :
-			switch($portal->deleteExpense()):
+			switch ($portal -> deleteExpense()) :
 				case ACTION_OK:
 					$_SESSION['success'] = 'Wpis został usunięty';
 					break;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'editIncome' :
-			switch($portal->checkIncomeEditForm()):
+			switch ($portal -> checkIncomeEditForm()) :
 				case ACTION_OK:
-					switch($portal->saveEditedIncome()):
+					switch ($portal -> saveEditedIncome()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case FORM_DATA_MISSING:
 					$_SESSION['warning'] = 'Nie wprowadzono żadnych zmian w formularzu.';
 					break;
+				case WRONG_LENGTH:
+				    $_SESSION['warning'] = 'Komentarz nie może mieć więcej niż 45 znaków!';
+				    break;
 				case ACTION_FAILED:
 					$_SESSION['warning'] = 'Kwota nie może być ujemna!';
 					break;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'editExpense' :
-			switch($portal->checkExpenseEditForm()):
+			switch ($portal -> checkExpenseEditForm()) :
 				case ACTION_OK:
-					switch($portal->saveEditedExpense()):
+					switch($portal -> saveEditedExpense()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case FORM_DATA_MISSING:
 					$_SESSION['warning'] = 'Nie wprowadzono żadnych zmian w formularzu.';
 					break;
+				case WRONG_LENGTH:
+				    $_SESSION['warning'] = 'Komentarz nie może mieć więcej niż 45 znaków!';
+				    break;
 				case ACTION_FAILED:
 					$_SESSION['warning'] = 'Kwota nie może być ujemna!';
 					break;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'editExpenseCategory' :
-			switch($portal->checkExpenseCategoryEditForm()):
+			switch ($portal -> checkExpenseCategoryEditForm()) :
 				case ACTION_OK:
-					switch($portal->saveEditedExpenseCategory()):
+					switch ($portal -> saveEditedExpenseCategory()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case FORM_DATA_MISSING:
@@ -244,22 +255,22 @@ try{
 					break;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'editIncomeCategory' :
-			switch($portal->checkIncomeCategoryEditForm()):
+			switch($portal -> checkIncomeCategoryEditForm()) :
 				case ACTION_OK:
-					switch($portal->saveEditedIncomeCategory()):
+					switch($portal -> saveEditedIncomeCategory()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case FORM_DATA_MISSING:
@@ -276,22 +287,22 @@ try{
 					break;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'editPaymentCategory' :
-			switch($portal->checkPaymentCategoryEditForm()):
+			switch ($portal -> checkPaymentCategoryEditForm()) :
 				case ACTION_OK:
-					switch($portal->saveEditedPaymentCategory()):
+					switch ($portal -> saveEditedPaymentCategory()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case FORM_DATA_MISSING:
@@ -308,22 +319,22 @@ try{
 					break;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'addExpenseCategory' :
-			switch($portal->checkNewExpenseCategoryForm()):
+			switch ($portal -> checkNewExpenseCategoryForm()) :
 				case ACTION_OK:
-					switch($portal->saveNewExpenseCategory()):
+					switch ($portal -> saveNewExpenseCategory()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case FORM_DATA_MISSING:
@@ -337,22 +348,22 @@ try{
 					break;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'addIncomeCategory' :
-			switch($portal->checkNewIncomeCategoryForm()):
+			switch ($portal -> checkNewIncomeCategoryForm()) :
 				case ACTION_OK:
-					switch($portal->saveNewIncomeCategory()):
+					switch ($portal -> saveNewIncomeCategory()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case FORM_DATA_MISSING:
@@ -371,17 +382,17 @@ try{
 			header($_SESSION['actionReturn']);
             break;
 		case 'addPaymentCategory' :
-			switch($portal->checkNewPaymentCategoryForm()):
+			switch ($portal -> checkNewPaymentCategoryForm()) :
 				case ACTION_OK:
-					switch($portal->saveNewPaymentCategory()):
+					switch ($portal -> saveNewPaymentCategory()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case FORM_DATA_MISSING:
@@ -400,17 +411,17 @@ try{
 			header($_SESSION['actionReturn']);
             break;
 		case 'deleteExpenseCategory' :
-			switch($portal->checkDeleteExpenseCategoryForm()):
+			switch ($portal -> checkDeleteExpenseCategoryForm()) :
 				case ACTION_OK:
-					switch($portal->deleteExpenseCategory()):
+					switch ($portal -> deleteExpenseCategory()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case ACTION_FAILED:
@@ -418,22 +429,22 @@ try{
 					break;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'deleteIncomeCategory' :
-			switch($portal->checkDeleteIncomeCategoryForm()):
+			switch ($portal -> checkDeleteIncomeCategoryForm()) :
 				case ACTION_OK:
-					switch($portal->deleteIncomeCategory()):
+					switch ($portal -> deleteIncomeCategory()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case ACTION_FAILED:
@@ -446,17 +457,17 @@ try{
 			header($_SESSION['actionReturn']);
             break;
 		case 'deletePaymentCategory' :
-			switch($portal->checkDeletePaymentCategoryForm()):
+			switch ($portal -> checkDeletePaymentCategoryForm()) :
 				case ACTION_OK:
-					switch($portal->deletePaymentCategory()):
+					switch ($portal -> deletePaymentCategory()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case ACTION_FAILED:
@@ -464,99 +475,99 @@ try{
 					break;
 				case SERVER_ERROR:
 				default:
-					$_SESSION['warning']='Błąd serwera!';
+					$_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'changeUsername' :
-			switch($portal->checkEditUsernameForm()):
+			switch ($portal -> checkEditUsernameForm()) :
 				case ACTION_OK:
-					switch($portal->saveNewUsername()):
+					switch ($portal -> saveNewUsername()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case FORM_DATA_MISSING:
-				    $_SESSION['warning']='Należy wpisać nową nazwę użytkownika!';
+				    $_SESSION['warning'] = 'Należy wpisać nową nazwę użytkownika!';
 				    break;
 				case WRONG_LENGTH:
-				    $_SESSION['warning']='Login musi posiadać od 3 do 20 znaków!';
+				    $_SESSION['warning'] = 'Login musi posiadać od 3 do 20 znaków!';
 				    break;
 				case WRONG_CHARACTERS:
-				    $_SESSION['warning']='Login może się składać tylko z liter i cyfr (bez polskich znaków)!';
+				    $_SESSION['warning'] = 'Login może się składać tylko z liter i cyfr (bez polskich znaków)!';
 				    break;
 				case ALREADY_EXISTS:
-				    $_SESSION['warning']='Istnieje już konto o takim loginie!';
+				    $_SESSION['warning'] = 'Istnieje już konto o takim loginie!';
 				    break;
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'changePassword' :
-			switch($portal->checkEditPasswordForm()):
+			switch ($portal -> checkEditPasswordForm()) :
 				case ACTION_OK:
-					switch($portal->saveNewPassword()):
+					switch ($portal -> saveNewPassword()) :
 						case ACTION_OK:
-							$_SESSION['success']='Zmiany zostały zapisane!';
+							$_SESSION['success'] = 'Zmiany zostały zapisane!';
 							break;
 						case ACTION_FAILED:
-							$_SESSION['warning']='Nie udało się zapisać';
+							$_SESSION['warning'] = 'Nie udało się zapisać';
 							break;
 						default:
-							$_SESSION['warning']='Błąd serwera!';
+							$_SESSION['warning'] = 'Błąd serwera!';
 					endswitch;
 					break;
 				case FORM_DATA_MISSING:
-				    $_SESSION['warning']='Należy wpisać stare i nowe hasło!';
+				    $_SESSION['warning'] = 'Należy wpisać stare i nowe hasło!';
 				    break;
 				case WRONG_LENGTH:
-				    $_SESSION['warning']='Nowe hasło musi składać się z od 5 do 20 znaków!';
+				    $_SESSION['warning'] = 'Nowe hasło musi składać się z od 5 do 20 znaków!';
 				    break;
 				case ACTION_FAILED:
-				    $_SESSION['warning']='Nie udało się zmienić hasła!';
+				    $_SESSION['warning'] = 'Nie udało się zmienić hasła!';
 				    break;
 				case SERVER_ERROR:
 				default:
-				    $_SESSION['warning']='Błąd serwera!';
+				    $_SESSION['warning'] = 'Błąd serwera!';
 			endswitch;
 			header($_SESSION['actionReturn']);
             break;
 		case 'deleteUser' :
-			switch($portal->deleteUser()):
+			switch ($portal -> deleteUser()) :
 				case ACTION_OK:
-			        $portal->setMessage('Konto zostało usunięte.');
+			        $portal -> setMessage('Konto zostało usunięte.');
 					header('Location:index.php?action=showMain');
 					break;
 				case ACTION_FAILED:
-				    $_SESSION['warning']='Nie udało się usunąć użytkownika!';
+				    $_SESSION['warning'] = 'Nie udało się usunąć użytkownika!';
 					header($_SESSION['actionReturn']);
 				    break;
 				case SERVER_ERROR:
 				default:
-				    $_SESSION['warning']='Błąd serwera!';
+				    $_SESSION['warning'] = 'Błąd serwera!';
 					header($_SESSION['actionReturn']);
 			endswitch;
 			break;
         default:
             include 'templates/mainTemplate.php';
     }
-}
-catch(Exception $e){
-  echo 'Błąd: ' . $e->getMessage();
-  exit('Portal chwilowo niedostępny');
+} catch(Exception $e) {
+    echo 'Błąd: ' . $e -> getMessage();
+    exit('Portal chwilowo niedostępny');
 }
 
 
-function classLoader($name){
-  if(file_exists("class/$name.php")){
-    require_once("class/$name.php");
-  } else {
-    throw new Exception("Brak pliku z definicją klasy.");
-  }
+function classLoader($name)
+{
+    if (file_exists("class/$name.php")) {
+        require_once("class/$name.php");
+    } else {
+        throw new Exception("Brak pliku z definicją klasy.");
+    }
 }
 ?>
