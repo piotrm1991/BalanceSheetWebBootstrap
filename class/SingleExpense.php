@@ -5,8 +5,6 @@ class SingleExpense extends SingleEntry
     public $payment_method_assigned_to_user_id;
     public $category;
     public $payment;
-    public $categoryTranslated;
-    public $paymentTranslated;
 
     function __construct($dbo, $loggedId, $id='', $user_id, $expense_category_assigned_to_user_id, $payment_method_assigned_to_user_id, $amount, $date, $comment)
     {
@@ -22,8 +20,6 @@ class SingleExpense extends SingleEntry
         $this -> comment = $comment;
         $this -> assignCategory();
         $this -> assignPaymentMethod();
-        $this -> assignCategoryTranslated();
-        $this -> assignPaymentMethodTranslated();
     }
     
     function assignCategory()
@@ -50,30 +46,6 @@ class SingleExpense extends SingleEntry
         }
     }
     
-    function assignCategoryTranslated()
-    {
-        $expenseCategoryNames = new ExpenseCategoryNames($this -> dbo, $this -> loggedId);
-        $categoryNames = $expenseCategoryNames -> getNamesTranslated();
-        foreach ($categoryNames as $id) {
-            if ($this -> expense_category_assigned_to_user_id == $id['id']) {
-                $this -> categoryTranslated = $id['name'];
-                break;		
-            }
-        }
-    }
-    
-    function assignPaymentMethodTranslated()
-    {
-        $paymentMethodsNames = new PaymentMethodsNames($this -> dbo, $this -> loggedId);
-        $paymentNames = $paymentMethodsNames -> getNamesTranslated();
-        foreach ($paymentNames as $id) {
-            if ($this -> payment_method_assigned_to_user_id == $id['id']) {
-                $this -> paymentTranslated = $id['name'];  
-                break;
-            }
-        }
-    }
-    
     function deleteExpense()
     {
         $deleteExpenseQuery = $this -> dbo -> prepreExpenseIncomeQuery($this -> id);
@@ -95,16 +67,16 @@ class SingleExpense extends SingleEntry
             &nbsp;&nbsp;
             ".$this->amount."&nbsp;zł
             &nbsp;&nbsp;
-            ".$this->categoryTranslated."
+            ".$this->category."
             &nbsp;&nbsp;
-            ".$this->paymentTranslated."
+            ".$this->payment."
             <div style='float: right;'>
-                <a data-toggle='modal' data-target='#editExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->categoryTranslated."' data-payment='".$this->paymentTranslated."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-pencil'></i></a>
+                <a data-toggle='modal' data-target='#editExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->category."' data-payment='".$this->payment."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-pencil'></i></a>
                 &nbsp;&nbsp;
-                <a data-toggle='modal' data-target='#deleteExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->categoryTranslated."' data-payment='".$this->paymentTranslated."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-trash'></i></a>
+                <a data-toggle='modal' data-target='#deleteExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->category."' data-payment='".$this->payment."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-trash'></i></a>
             </div>
             <br>
-            <div style='padding-left: 20px;'>".$this->comment."</div>
+            <div style='padding-left: 24px;'>".$this->comment."</div>
         </section>	
         ";
     }
@@ -119,14 +91,14 @@ class SingleExpense extends SingleEntry
             ".$this -> date."
            &nbsp;&nbsp;
             ".$this->amount."&nbsp;zł&nbsp;&nbsp;
-            ".$this->paymentTranslated."
+            ".$this->payment."
             <div style='float: right;'>
-                <a data-toggle='modal' data-target='#editExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->categoryTranslated."' data-payment='".$this->paymentTranslated."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-pencil'></i></a>
+                <a data-toggle='modal' data-target='#editExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->category."' data-payment='".$this->payment."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-pencil'></i></a>
                 &nbsp;&nbsp;
-                <a data-toggle='modal' data-target='#deleteExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->categoryTranslated."' data-payment='".$this->paymentTranslated."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-trash'></i></a>
+                <a data-toggle='modal' data-target='#deleteExpense' style='cursor: pointer;' data-date='".$this->date."' data-amount='".$this->amount."' data-category='".$this->category."' data-payment='".$this->payment."' data-comment='".$this->comment."' data-id='".$this->id."' data-category-id='".$this->expense_category_assigned_to_user_id."' data-payment-id='".$this->payment_method_assigned_to_user_id."'><i class='glyphicon glyphicon-trash'></i></a>
             </div>
             <br>
-            <div style='padding-left: 23px;'>".$this->comment."</div>
+            <div style='padding-left: 24px;'>".$this->comment."</div>
         </section>
         ";
     }

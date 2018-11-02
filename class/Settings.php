@@ -6,15 +6,12 @@ class Settings
     private $dbo;
 
     private $categoriesIncomeNames;
-    private $categoriesIncomeNamesTranslated;
     private $fieldsIncome = array();
 
     private $categoriesExpenseNames;
-    private $categoriesExpenseNamesTranslated;
     private $fieldsExpense = array();
 
     private $paymentsNames;
-    private $paymentsNamesTranslated;
     private $fieldsPayment = array();
 
     private $newCategoryName = array();
@@ -33,43 +30,26 @@ class Settings
     {
         $expenseCategoryName = new ExpenseCategoryNames($this -> dbo, $this -> userLoggedIn -> id);
         $this -> categoriesExpenseNames = $expenseCategoryName -> getNames();
-        $this -> categoriesExpenseNamesTranslated = $expenseCategoryName -> getNamesTranslated();
 
         $paymentMethodName = new PaymentMethodsNames($this -> dbo, $this -> userLoggedIn -> id);
         $this -> paymentsNames = $paymentMethodName -> getNames();
-        $this -> paymentsNamesTranslated = $paymentMethodName -> getNamesTranslated();
 
         $incomeCategoryName = new IncomeCategoryNames($this -> dbo, $this -> userLoggedIn -> id);
         $this -> categoriesIncomeNames = $incomeCategoryName -> getNames();
-        $this -> categoriesIncomeNamesTranslated = $incomeCategoryName -> getNamesTranslated();
     }
 	
     function initFields()
     {
         foreach ($this -> categoriesExpenseNames as $value) {
-            foreach ($this -> categoriesExpenseNamesTranslated as $description) {
-                if ($value['id'] == $description['id']) {
-                    $this -> fieldsExpense[$value['id']] = new FormInputSelectionOption('category', $value['name'], $description['name']);
-                }
-            }
+            $this -> fieldsExpense[$value['id']] = new FormInputSelectionOption('category', $value['name'], $value['name']);
         }
 		
         foreach ($this -> paymentsNames as $value) {
-            foreach ($this -> paymentsNamesTranslated as $description) {
-                if ($value['id'] == $description['id']) {
-                    $this -> fieldsPayment[$value['id']] = new FormInputSelectionOption('payment', $value['name'], $description['name']);
-                    break;
-                }
-            }
+            $this -> fieldsPayment[$value['id']] = new FormInputSelectionOption('payment', $value['name'], $value['name']);
         }
         
         foreach ($this -> categoriesIncomeNames as $value) {
-            foreach ($this -> categoriesIncomeNamesTranslated as $description) {
-                if ($value['id'] == $description['id']) {
-                    $this -> fieldsIncome[$value['id']] = new FormInputSelectionOption('category', $value['name'], $description['name']);
-                    break;
-                }
-            }
+            $this -> fieldsIncome[$value['id']] = new FormInputSelectionOption('category', $value['name'], $value['name']);
         }
     }
 	
@@ -114,7 +94,7 @@ class Settings
             return ACTION_FAILED;
         }
         
-        foreach ($this -> categoriesExpenseNamesTranslated as $category) {
+        foreach ($this -> categoriesExpenseNames as $category) {
             if (strtolower($category['name']) == strtolower($newCategoryName)) {
                 return ALREADY_EXISTS;
             }
@@ -166,7 +146,7 @@ class Settings
             return ACTION_FAILED;
         }
         
-        foreach ($this -> categoriesIncomeNamesTranslated as $category) {
+        foreach ($this -> categoriesIncomeNames as $category) {
             if (strtolower($category['name']) == strtolower($newCategoryName)) {
                 return ALREADY_EXISTS;
             }
@@ -219,7 +199,7 @@ class Settings
             return ACTION_FAILED;
         }
         
-        foreach ($this -> paymentsNamesTranslated as $category) {
+        foreach ($this -> paymentsNames as $category) {
             if (strtolower($category['name']) == strtolower($newCategoryName)) {
                 return ALREADY_EXISTS;
             }
@@ -268,7 +248,7 @@ class Settings
             return WRONG_LENGTH;
         }
         
-        foreach ($this -> categoriesExpenseNamesTranslated as $category) {
+        foreach ($this -> categoriesExpenseNames as $category) {
             if (strtolower($category['name']) == strtolower($newCategoryName)) {
                 return ALREADY_EXISTS;
             }
@@ -312,7 +292,7 @@ class Settings
             return WRONG_LENGTH;
         }
         
-        foreach ($this -> categoriesIncomeNamesTranslated as $category) {
+        foreach ($this -> categoriesIncomeNames as $category) {
             if (strtolower($category['name']) == strtolower($newCategoryName)) {
                 return ALREADY_EXISTS;
             }
@@ -356,7 +336,7 @@ class Settings
             return WRONG_LENGTH;
         }
         
-        foreach ($this -> paymentsNamesTranslated as $category) {
+        foreach ($this -> paymentsNames as $category) {
             if (strtolower($category['name']) == strtolower($newCategoryName)) {
                 return ALREADY_EXISTS;
             }

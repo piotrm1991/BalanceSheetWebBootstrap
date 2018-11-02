@@ -6,7 +6,6 @@ class EditIncome
     private $fieldsSelection = array();
     private $loggedId;
     private $categories;
-    private $categoriesTranslated;
     private $newIncome;
     
     function __construct($dbo, $loggedId)
@@ -21,7 +20,6 @@ class EditIncome
     {
         $incomeCategoryName = new IncomeCategoryNames($this -> dbo, $this -> loggedId);
         $this -> categories = $incomeCategoryName -> getNames();
-        $this -> categoriesTranslated = $incomeCategoryName -> getNamesTranslated();
     }
 
     function initFields()
@@ -31,12 +29,7 @@ class EditIncome
         $this -> fields['comment'] = new FormTextareaInput('comment', 'Komentarz (opcjonalnie)', '1', 'Komentarz');
 
         foreach ($this -> categories as $value) {
-            foreach ($this -> categoriesTranslated as $description) {
-                if ($value['id'] == $description['id']) {
-                    $this -> fieldsSelection[$value['id']] = new FormInputSelectionOption('category', $value['name'], $description['name']);
-                    break;
-                }
-            }
+            $this -> fieldsSelection[$value['id']] = new FormInputSelectionOption('category', $value['name'], $value['name']);
         }
     }
 

@@ -6,7 +6,6 @@ class Category
     public $loggedId;
     public $id;
     public $name;
-    public $nameTranslated;
     public $sum;
 
     function __construct($dbo, $loggedId, $id, $sum)

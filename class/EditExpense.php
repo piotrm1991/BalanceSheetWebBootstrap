@@ -4,12 +4,11 @@ class EditExpense
 {
     private $dbo = null;
     private $fields = array();
-    private $fieldsSelection = array();
+    private $fieldsSelectionPayment = array();
+    private $fieldsSelectionCategory = array();
     private $loggedId;
     private $categories;
-    private $categoriesTranslated;
     private $payments;
-    private $paymentsTranslated;
     private $newExpense;
 
     function __construct($dbo, $loggedId)
@@ -24,11 +23,9 @@ class EditExpense
     {
         $expenseCategoryName = new ExpenseCategoryNames($this -> dbo, $this -> loggedId);
         $this -> categories = $expenseCategoryName -> getNames();
-        $this -> categoriesTranslated = $expenseCategoryName -> getNamesTranslated();
 
         $paymentMethodName = new PaymentMethodsNames($this -> dbo, $this -> loggedId);
         $this -> payments = $paymentMethodName -> getNames();
-        $this -> paymentsTranslated = $paymentMethodName -> getNamesTranslated();
     }
 
     function initFields()
@@ -38,28 +35,19 @@ class EditExpense
         $this -> fields['comment'] = new FormTextareaInput('comment', 'Komentarz (opcjonalnie)', '1', 'Komentarz');
 
         foreach ($this -> categories as $value) {
-            foreach ($this -> categoriesTranslated as $description) {
-                if ($value['id'] == $description['id']) {
-                    $this -> fieldsSelection[$value['id']] = new FormInputSelectionOption('category', $value['name'], $description['name']);
-                    break;
-                }
-            }
+            $this -> fieldsSelectionCategory[$value['id']] = new FormInputSelectionOption('category', $value['name'], $value['name']);
         }
 
         foreach ($this -> payments as $value) {
-            foreach ($this -> paymentsTranslated as $description) {
-                if ($value['id'] == $description['id']) {
-                    $this -> fieldsSelection[$value['id']] = new FormInputSelectionOption('payment', $value['name'], $description['name']);
-                    break;
-                }
-            }
+            $this -> fieldsSelectionPayment[$value['id']] = new FormInputSelectionOption('payment', $value['name'], $value['name']);
         }
     }
 
     function showExpenseEditForm()
     {
         $inputFields = $this -> fields;
-        $inputFieldsSelection = $this -> fieldsSelection;
+        $inputFieldsSelectionCategory = $this -> fieldsSelectionCategory;
+        $inputFieldsSelectionPayment = $this -> fieldsSelectionPayment;
 
         include 'templates/expenseEditForm.php'; 
     }

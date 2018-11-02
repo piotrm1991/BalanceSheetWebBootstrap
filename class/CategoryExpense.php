@@ -8,19 +8,6 @@ class CategoryExpense extends Category
         $this -> id = $id;
         $this -> sum = $sum;
         $this -> getName();
-        $this -> getNameTranslated();
-    }
-
-    function getNameTranslated()
-    {
-        $expenseCategoryNames = new ExpenseCategoryNames($this -> dbo, $this -> loggedId);
-        $categoryNames = $expenseCategoryNames -> getNamesTranslated();
-        foreach ($categoryNames as $id) {
-            if ($this -> id == $id['id']) {
-                $this -> nameTranslated = $id['name'];
-                break;		
-            }
-        }
     }
 
     function getName()
@@ -40,7 +27,7 @@ class CategoryExpense extends Category
         echo 
         "
         <div class='singleCategory' >
-            <strong>$this->nameTranslated</strong>
+            <strong>$this->name</strong>
             <div style='float: right;'>$this->sum&nbsp;zł</div>	
         </div>
         ";

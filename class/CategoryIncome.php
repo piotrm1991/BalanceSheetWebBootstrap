@@ -9,19 +9,6 @@ class CategoryIncome extends Category
         $this -> id = $id;
         $this -> sum = $sum;
         $this -> getName();
-        $this -> getNameTranslated();
-    }
-
-    function getNameTranslated()
-    {
-        $incomeCategoryNames = new IncomeCategoryNames($this -> dbo, $this -> loggedId);
-        $categoryNames = $incomeCategoryNames -> getNamesTranslated();
-        foreach ($categoryNames as $id) {
-            if ($this -> id == $id['id']) {
-                $this -> nameTranslated = $id['name'];
-                break;		
-            }
-        }
     }
 
     function getName()
@@ -41,7 +28,7 @@ class CategoryIncome extends Category
         echo 
         "
         <div class='singleCategory' >
-            <strong>$this->nameTranslated</strong>
+            <strong>$this->name</strong>
             <div style='float: right;'>$this->sum&nbsp;zł</div>
         </div>
         ";

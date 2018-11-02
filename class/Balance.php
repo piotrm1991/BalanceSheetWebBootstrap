@@ -5,10 +5,8 @@ class Balance
     private $loggedId;
 
     private $categoriesExpenseNames;
-    private $categoriesExpenseNamesTranslated;
 
     private $categoriesIncomeNames;
-    private $categoriesIncomeTranslatedNames;
 
     private $categoriesExpense = array();
     private $categoriesIncome = array();
@@ -41,11 +39,9 @@ class Balance
     {
         $expenseCategoryName = new ExpenseCategoryNames($this -> dbo, $this -> loggedId);
         $this -> categoriesExpenseNames = $expenseCategoryName -> getNames();
-        $this -> categoriesExpenseNamesTranslated = $expenseCategoryName -> getNamesTranslated();
 
         $incomeCategoryName = new IncomeCategoryNames($this -> dbo, $this -> loggedId);
         $this -> categoriesIncomeNames = $incomeCategoryName -> getNames();
-        $this -> categoriesIncomeTranslatedNames = $incomeCategoryName -> getNamesTranslated();
     }
 
     function getBalaceThisMonth()
@@ -130,7 +126,7 @@ class Balance
             $this -> expenseSum += $expense['amount'];
         }
         foreach ($this -> categoriesExpense as $category) {
-            $newPieData = array(array($category -> nameTranslated, floatval($category -> sum)),);
+            $newPieData = array(array($category -> name, floatval($category -> sum)),);
             $this -> pieData = array_merge($this -> pieData, $newPieData);
         }
 

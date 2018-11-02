@@ -30,10 +30,8 @@ if (!isset($_SESSION['loggedIN'])) {
 								<label for="payment"><strong>Sposób płatności:</strong>&nbsp;<span class="paymentTranslated"></span></label>
 								<select class="form-control" name="payment">
 									<option selected value="" selected disabled hidden>Wybierz formę płatności</option>
-									<?php foreach ($inputFieldsSelection as $input): ?>
-									<?php if ($input->name=='payment'): ?>
+									<?php foreach ($inputFieldsSelectionPayment as $input): ?>
 									<?=$input->getInputHTML()?>
-									<?php endif; ?>
 									<?php endforeach; ?>
 								</select>
 							</div>
@@ -43,10 +41,8 @@ if (!isset($_SESSION['loggedIN'])) {
 						<label for="category"><strong>Kategoria:</strong>&nbsp;<span class="categoryTranslated"></span></label>
 						<select class="form-control" name="category">
 							<option selected value="" selected disabled hidden>Wybierz kategorię</option>
-							<?php foreach ($inputFieldsSelection as $input): ?>
-							<?php if ($input->name=='category'): ?>
+							<?php foreach ($inputFieldsSelectionCategory as $input): ?>
 							<?=$input->getInputHTML()?>
-							<?php endif; ?>
 							<?php endforeach; ?>
 						</select>
 					</div>

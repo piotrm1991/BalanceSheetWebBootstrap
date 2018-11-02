@@ -26,7 +26,7 @@
 		<div class="col-sm-2"></div>
 		<div class="col-sm-3">
 			<div class="start">
-			<?php if (!$lastExpenses): ?>
+			<?php if (!$lastIncomes): ?>
 			<h2>Nie ma jeszcze żadnych przychodów!</h2>
 			<?php else: ?>
 			<h2>Ostatnio dodane przychody</h2>
