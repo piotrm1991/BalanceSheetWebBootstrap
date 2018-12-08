@@ -43,7 +43,14 @@ class EditIncome
 
     function checkIncomeEditForm()
     {
-        $this -> newIncome = new SingleIncome ($this -> dbo, $this -> loggedId, $_POST['id'], $this -> loggedId, $_POST['income_category_assigned_to_user_id_old'], $_POST['amount_old'], $_POST['date_old'], $_POST['comment_old']);
+        $this -> newIncome = (new SingleIncomeBuilder($this -> dbo, $this -> loggedId))
+                                            -> addId($_POST['id'])
+                                            -> addUserId($this -> loggedId)
+                                            -> addAmount($_POST['amount_old'])
+                                            -> addDate($_POST['date_old'])
+                                            -> addComment($_POST['comment_old'])
+                                            -> addIncomeCategoryId($_POST['income_category_assigned_to_user_id_old'])
+                                            -> build();
 
         if (!isset($_POST['category']) && $_POST['amount'] <= 0 && $_POST['date'] == null && $_POST['comment'] == '') {
             return FORM_DATA_MISSING;
@@ -78,7 +85,14 @@ class EditIncome
         }
         
         $this -> newIncome -> comment = $comment;
-        $_SESSION['editedIncome'] = new SingleIncome($this -> dbo, $this -> loggedId, $this -> newIncome -> id, $this -> loggedId, $this -> newIncome -> income_category_assigned_to_user_id, $this -> newIncome -> amount, $this -> newIncome -> date, $this -> newIncome -> comment);
+        $_SESSION['editedIncome'] = (new SingleIncomeBuilder($this -> dbo, $this -> loggedId))
+                                            -> addId($this -> newIncome -> id)
+                                            -> addUserId($this -> loggedId)
+                                            -> addAmount($this -> newIncome -> amount)
+                                            -> addDate($this -> newIncome -> date)
+                                            -> addComment($this -> newIncome -> comment)
+                                            -> addIncomeCategoryId($this -> newIncome -> income_category_assigned_to_user_id)
+                                            -> build();
 
         return ACTION_OK;
     }

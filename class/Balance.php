@@ -131,10 +131,25 @@ class Balance
         }
 
         foreach ($this -> expenseQuery as $expense) {
-            $this -> expenses[] = new SingleExpense($this -> dbo, $this -> loggedId, $expense['id'], $expense['user_id'], $expense['expense_category_assigned_to_user_id'], $expense['payment_method_assigned_to_user_id'], $expense['amount'], $expense['date'], $expense['comment']); 
+            $this -> expenses[] = (new SingleExpenseBuilder($this -> dbo, $this -> loggedId))
+                                    -> addId($expense['id'])
+                                    -> addUserId($expense['user_id'])
+                                    -> addAmount($expense['amount'])
+                                    -> addDate($expense['date'])
+                                    -> addComment($expense['comment'])
+                                    -> addExpenseCategoryId($expense['expense_category_assigned_to_user_id'])
+                                    -> addPaymentCategoryId($expense['payment_method_assigned_to_user_id'])
+                                    -> build();
         }
         foreach ($this -> incomeQuery as $income) {
-            $this -> incomes[] = new SingleIncome($this -> dbo, $this -> loggedId, $income['id'], $income['user_id'], $income['income_category_assigned_to_user_id'], $income['amount'], $income['date'], $income['comment']); 
+            $this -> incomes[] = (new SingleIncomeBuilder($this -> dbo, $this -> loggedId))
+                                    -> addId($income['id'])
+                                    -> addUserId($income['user_id'])
+                                    -> addAmount($income['amount'])
+                                    -> addDate($income['date'])
+                                    -> addComment($income['comment'])
+                                    -> addIncomeCategoryId($income['income_category_assigned_to_user_id'])
+                                    -> build();                        
         }
     }
 

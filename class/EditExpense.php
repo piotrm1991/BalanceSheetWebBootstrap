@@ -54,7 +54,15 @@ class EditExpense
 
     function checkExpenseEditForm()
     {
-        $this -> newExpense = new SingleExpense ($this -> dbo, $this -> loggedId, $_POST['id'], $this -> loggedId, $_POST['expense_category_assigned_to_user_id_old'], $_POST['payment_method_assigned_to_user_id_old'], $_POST['amount_old'], $_POST['date_old'], $_POST['comment_old']);
+        $this -> newExpense = (new SingleExpenseBuilder($this -> dbo, $this -> loggedId))
+                                -> addId($_POST['id'])
+                                -> addUserId($this -> loggedId)
+                                -> addAmount($_POST['amount_old'])
+                                -> addDate($_POST['date_old'])
+                                -> addComment($_POST['comment_old'])
+                                -> addExpenseCategoryId($_POST['expense_category_assigned_to_user_id_old'])
+                                -> addPaymentCategoryId($_POST['payment_method_assigned_to_user_id_old'])
+                                -> build();
 
         if (!isset($_POST['category']) && $_POST['amount'] <= 0 && $_POST['date'] == null && $_POST['comment'] == '' && !isset($_POST['payment'])) {
             return FORM_DATA_MISSING;
@@ -97,7 +105,15 @@ class EditExpense
         }
         
         $this -> newExpense -> comment = $comment;
-        $_SESSION['editedExpense'] = new SingleExpense($this -> dbo, $this -> loggedId, $this -> newExpense -> id, $this -> loggedId, $this -> newExpense -> expense_category_assigned_to_user_id, $this -> newExpense -> payment_method_assigned_to_user_id, $this -> newExpense -> amount, $this -> newExpense -> date, $this -> newExpense -> comment);
+        $_SESSION['editedExpense'] = (new SingleExpenseBuilder($this -> dbo, $this -> loggedId))
+                                        -> addId($this -> newExpense -> id)
+                                        -> addUserId($this -> loggedId)
+                                        -> addAmount($this -> newExpense -> amount)
+                                        -> addDate($this -> newExpense -> date)
+                                        -> addComment($this -> newExpense -> comment)
+                                        -> addExpenseCategoryId($this -> newExpense -> expense_category_assigned_to_user_id)
+                                        -> addPaymentCategoryId($this -> newExpense -> payment_method_assigned_to_user_id)
+                                        -> build();
 
         return ACTION_OK;
     }

@@ -110,7 +110,16 @@ class AddExpense
                 $paymentId = $name['id'];
             }
         }
-        $_SESSION['newExpense'] = new SingleExpense($this -> dbo, $this -> loggedId, '', $this -> loggedId, $categoryId, $paymentId, $amount, $date, $comment);
+
+        $_SESSION['newExpense'] = (new SingleExpenseBuilder($this -> dbo, $this -> loggedId))
+                                            -> addId('')
+                                            -> addUserId($this -> loggedId)
+                                            -> addAmount($amount)
+                                            -> addDate($date)
+                                            -> addComment($comment)
+                                            -> addExpenseCategoryId($categoryId)
+                                            -> addPaymentCategoryId($paymentId)
+                                            -> build();
 
         return ACTION_OK;
     }
@@ -120,7 +129,7 @@ class AddExpense
         $this -> newExpense = $_SESSION['newExpense'];
         unset($_SESSION['newExpense']);
 
-        $saveExpenseQuery = $this -> dbo -> prepareSaveExpenseQuery($this -> newExpense->loggedId, $this -> newExpense -> expense_category_assigned_to_user_id, $this -> newExpense -> payment_method_assigned_to_user_id, $this -> newExpense -> amount, $this -> newExpense -> date, $this -> newExpense -> comment);
+        $saveExpenseQuery = $this -> dbo -> prepareSaveExpenseQuery($this -> newExpense -> loggedId, $this -> newExpense -> expense_category_assigned_to_user_id, $this -> newExpense -> payment_method_assigned_to_user_id, $this -> newExpense -> amount, $this -> newExpense -> date, $this -> newExpense -> comment);
 
         if ($this -> dbo -> executeSaveExpenseQuery($saveExpenseQuery)) {
             return ACTION_OK;

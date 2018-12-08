@@ -79,8 +79,15 @@ class AddIncome
                 $categoryId = $name['id'];
             }
         }
-        $_SESSION['newIncome'] = new SingleIncome($this -> dbo, $this -> loggedId, '', $this -> loggedId, $categoryId, $amount, $date, $comment);
 
+        $_SESSION['newIncome'] = (new SingleIncomeBuilder($this -> dbo, $this -> loggedId))
+                                            -> addId('')
+                                            -> addUserId($this -> loggedId)
+                                            -> addAmount($amount)
+                                            -> addDate($date)
+                                            -> addComment($comment)
+                                            -> addIncomeCategoryId($categoryId)
+                                            -> build();
         return ACTION_OK;
     }
     

@@ -168,13 +168,28 @@ class PortalFront extends Portal
     
     function deleteIncome()
     {
-        $singleEntry = new SingleIncome ($this -> dbo, $this -> loggedIN->id, $_POST['id'], $this -> loggedIN -> id, $_POST['income_category_assigned_to_user_id'], $_POST['amount'], $_POST['date'], $_POST['comment']);
+        $singleEntry = (new SingleIncomeBuilder($this -> dbo, $this -> loggedIN -> id))
+                        -> addId($_POST['id'])
+                        -> addUserId($this -> loggedIN -> id)
+                        -> addAmount($_POST['amount'])
+                        -> addDate($_POST['date'])
+                        -> addComment($_POST['comment'])
+                        -> addIncomeCategoryId($_POST['income_category_assigned_to_user_id'])
+                        -> build();
         return  $singleEntry -> deleteIncome();; 
     }
         
     function deleteExpense()
     {
-        $singleEntry = new SingleExpense ($this -> dbo, $this -> loggedIN -> id, $_POST['id'], $this -> loggedIN -> id, $_POST['expense_category_assigned_to_user_id'], $_POST['payment_method_assigned_to_user_id'], $_POST['amount'], $_POST['date'], $_POST['comment']);
+        $singleEntry = (new SingleExpenseBuilder($this -> dbo, $this -> loggedIN -> id))
+                        -> addId($_POST['id'])
+                        -> addUserId($this -> loggedIN -> id)
+                        -> addAmount($_POST['amount'])
+                        -> addDate($_POST['date'])
+                        -> addComment($_POST['comment'])
+                        -> addExpenseCategoryId($_POST['expense_category_assigned_to_user_id'])
+                        -> addPaymentCategoryId($_POST['payment_method_assigned_to_user_id'])
+                        -> build();
         return  $singleEntry -> deleteExpense();; 
     }
     
